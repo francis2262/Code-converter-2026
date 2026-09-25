@@ -1,0 +1,1031 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Bet Code Converter</title>
+
+<style>
+
+:root{
+    font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+    color:#111827;
+    background:#f4f7fb;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+}
+
+.wrap{
+    max-width:1050px;
+    margin:auto;
+    padding:22px;
+}
+
+header{
+    background:#111827;
+    color:white;
+    border-radius:18px;
+    padding:24px;
+    margin-bottom:18px;
+}
+
+header h1{
+    margin:0 0 7px;
+    font-size:28px;
+}
+
+header p{
+    margin:0;
+    color:#cbd5e1;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:18px;
+}
+
+.card{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    padding:18px;
+    box-shadow:
+    0 6px 20px rgba(15,23,42,.05);
+}
+
+h2{
+    margin-top:0;
+}
+
+label{
+    font-weight:700;
+    font-size:14px;
+    display:block;
+    margin:12px 0 6px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    border:1px solid #cbd5e1;
+    border-radius:10px;
+    padding:12px;
+    font:inherit;
+    background:#fff;
+}
+
+textarea{
+    min-height:150px;
+    font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+
+    font-size:13px;
+}
+
+.row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+button{
+    border:0;
+    border-radius:10px;
+    padding:12px 15px;
+    font-weight:800;
+    cursor:pointer;
+    background:#111827;
+    color:white;
+}
+
+button.secondary{
+    background:#e5e7eb;
+    color:#111827;
+}
+
+.actions{
+    display:flex;
+    gap:9px;
+    flex-wrap:wrap;
+    margin-top:14px;
+}
+
+.notice{
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    border-radius:10px;
+    padding:12px;
+    font-size:13px;
+    color:#7c2d12;
+    margin-top:12px;
+}
+
+.success{
+    background:#ecfdf5;
+    border:1px solid #a7f3d0;
+    color:#065f46;
+    border-radius:10px;
+    padding:12px;
+    margin-top:12px;
+}
+
+.result{
+    margin-top:18px;
+}
+
+.leg{
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    padding:12px;
+    margin-top:10px;
+}
+
+.badge{
+    display:inline-block;
+    border-radius:999px;
+    padding:4px 8px;
+    font-size:12px;
+    font-weight:800;
+    background:#dcfce7;
+    color:#166534;
+}
+
+.badge.warn{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.small{
+    font-size:12px;
+    color:#64748b;
+}
+
+.muted{
+    color:#64748b;
+}
+
+.chatbox{
+    height:360px;
+    overflow:auto;
+    background:#f8fafc;
+    border:1px solid #e2e8f0;
+    border-radius:10px;
+    padding:10px;
+}
+
+.msg{
+    padding:8px 10px;
+    margin-bottom:7px;
+    background:white;
+    border-radius:10px;
+    border:1px solid #e5e7eb;
+}
+
+.msg b{
+    font-size:13px;
+}
+
+.msg p{
+    margin:3px 0 0;
+    white-space:pre-wrap;
+    word-break:break-word;
+}
+
+.chat-input{
+    display:grid;
+    grid-template-columns:110px 1fr auto;
+    gap:7px;
+    margin-top:9px;
+}
+
+.loading{
+    opacity:.65;
+    pointer-events:none;
+}
+
+@media(max-width:780px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .row{
+        grid-template-columns:1fr;
+    }
+
+    .chat-input{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="wrap">
+
+<header>
+
+<h1>
+Bet Code Converter
+</h1>
+
+<p>
+Bet9ja ⇄ SportyBet • Conversion Preview + Community Chat
+</p>
+
+</header>
+
+
+<div class="grid">
+
+
+<!-- CONVERTER -->
+
+<section class="card">
+
+<h2>
+Convert a Slip
+</h2>
+
+<p class="muted">
+Enter a demo booking code or paste structured slip JSON.
+</p>
+
+
+<label>
+Booking Code
+</label>
+
+<input
+id="code"
+placeholder="Try SP12345 or BJ99999"
+/>
+
+
+<div class="row">
+
+
+<div>
+
+<label>
+From
+</label>
+
+<select id="from">
+
+<option value="bet9ja">
+Bet9ja
+</option>
+
+<option value="sportybet">
+SportyBet
+</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>
+To
+</label>
+
+<select id="to">
+
+<option value="sportybet">
+SportyBet
+</option>
+
+<option value="bet9ja">
+Bet9ja
+</option>
+
+</select>
+
+</div>
+
+
+</div>
+
+
+<label>
+Optional Slip JSON
+</label>
+
+<textarea
+id="json"
+placeholder='{"legs":[{"home":"Arsenal","away":"Chelsea","market":"1X2","pick":"HOME","odds":1.85}]}'
+></textarea>
+
+
+<div class="actions">
+
+<button onclick="convert()">
+Convert
+</button>
+
+<button
+class="secondary"
+onclick="demo('SP12345','sportybet','bet9ja')"
+>
+Load SportyBet Demo
+</button>
+
+<button
+class="secondary"
+onclick="demo('BJ99999','bet9ja','sportybet')"
+>
+Load Bet9ja Demo
+</button>
+
+</div>
+
+
+<div class="notice">
+
+<strong>Important:</strong>
+
+This MVP creates a conversion preview.
+
+It does not invent a fake target-platform booking code.
+
+The target platform must create its own valid booking code.
+
+</div>
+
+
+<div
+id="result"
+class="result"
+>
+</div>
+
+
+</section>
+
+
+
+<!-- CHAT -->
+
+<section class="card">
+
+<h2>
+Community Chat
+</h2>
+
+<p class="small">
+
+Messages are stored by the server and broadcast to connected users.
+
+</p>
+
+
+<div
+id="chat"
+class="chatbox"
+>
+</div>
+
+
+<div class="chat-input">
+
+
+<input
+id="username"
+maxlength="30"
+placeholder="Your name"
+/>
+
+
+<input
+id="message"
+maxlength="500"
+placeholder="Type a message..."
+onkeydown="if(event.key==='Enter')sendChat()"
+/>
+
+
+<button onclick="sendChat()">
+Send
+</button>
+
+
+</div>
+
+
+<p
+id="chatStatus"
+class="small"
+>
+Connecting...
+</p>
+
+
+</section>
+
+
+</div>
+
+</div>
+
+
+<script>
+
+
+const $ = id => document.getElementById(id);
+
+
+
+/* =========================
+   LOAD DEMO
+========================= */
+
+function demo(code, from, to){
+
+    $('code').value = code;
+
+    $('from').value = from;
+
+    $('to').value = to;
+
+    $('json').value = '';
+
+    convert();
+
+}
+
+
+
+/* =========================
+   CONVERT
+========================= */
+
+async function convert(){
+
+    const button =
+        document.querySelector(
+            'button[onclick="convert()"]'
+        );
+
+
+    const body = {
+
+        code:
+            $('code').value,
+
+        from_platform:
+            $('from').value,
+
+        to_platform:
+            $('to').value
+
+    };
+
+
+    const raw =
+        $('json').value.trim();
+
+
+    if(raw){
+
+        try{
+
+            body.slip =
+                JSON.parse(raw);
+
+        }
+
+        catch(error){
+
+            $('result').innerHTML = `
+
+                <div class="notice">
+
+                Invalid JSON.
+
+                Check your brackets and quotation marks.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+    }
+
+
+    $('result').innerHTML =
+        '<p>Converting...</p>';
+
+
+    if(button){
+
+        button.classList.add(
+            'loading'
+        );
+
+    }
+
+
+    try{
+
+        const response =
+            await fetch(
+                '/api/convert',
+                {
+                    method:'POST',
+
+                    headers:{
+                        'Content-Type':
+                            'application/json'
+                    },
+
+                    body:
+                        JSON.stringify(body)
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if(!data.ok){
+
+            $('result').innerHTML = `
+
+                <div class="notice">
+
+                ${escapeHtml(data.message)}
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        let html = `
+
+            <h3>
+            Conversion Result
+            </h3>
+
+            <div class="success">
+
+            ${escapeHtml(data.message)}
+
+            </div>
+
+            <p class="small">
+
+            ${escapeHtml(
+                data.converted_code_note
+            )}
+
+            </p>
+
+        `;
+
+
+        data.preview.legs.forEach(
+            leg => {
+
+                const warning =
+                    leg.status !== 'Mapped';
+
+
+                html += `
+
+                <div class="leg">
+
+                    <span
+                    class="badge ${
+                        warning ? 'warn' : ''
+                    }"
+                    >
+
+                    ${escapeHtml(
+                        leg.status
+                    )}
+
+                    </span>
+
+
+                    <strong>
+
+                    Leg ${leg.leg}:
+
+                    ${escapeHtml(
+                        leg.home
+                    )}
+
+                    vs
+
+                    ${escapeHtml(
+                        leg.away
+                    )}
+
+                    </strong>
+
+
+                    <p>
+
+                    <strong>
+                    Source market:
+                    </strong>
+
+                    ${escapeHtml(
+                        leg.source_market
+                    )}
+
+                    </p>
+
+
+                    <p>
+
+                    <strong>
+                    Target market:
+                    </strong>
+
+                    ${escapeHtml(
+                        leg.target_market
+                    )}
+
+                    </p>
+
+
+                    <p>
+
+                    <strong>
+                    Pick:
+                    </strong>
+
+                    ${escapeHtml(
+                        leg.pick
+                    )}
+
+                    ${
+                        leg.source_odds
+                        ?
+                        ' • Source odds ' +
+                        escapeHtml(
+                            String(
+                                leg.source_odds
+                            )
+                        )
+                        :
+                        ''
+                    }
+
+                    </p>
+
+
+                    <p class="small">
+
+                    ${escapeHtml(
+                        leg.note
+                    )}
+
+                    </p>
+
+                </div>
+
+                `;
+
+            }
+        );
+
+
+        $('result').innerHTML =
+            html;
+
+    }
+
+
+    catch(error){
+
+        $('result').innerHTML = `
+
+            <div class="notice">
+
+            Server error.
+
+            Make sure the backend is running.
+
+            </div>
+
+        `;
+
+    }
+
+
+    finally{
+
+        if(button){
+
+            button.classList.remove(
+                'loading'
+            );
+
+        }
+
+    }
+
+}
+
+
+
+/* =========================
+   SECURITY
+========================= */
+
+function escapeHtml(value){
+
+    return String(
+        value ?? ''
+    ).replace(
+        /[&<>"']/g,
+        character => ({
+
+            '&':'&amp;',
+
+            '<':'&lt;',
+
+            '>':'&gt;',
+
+            '"':'&quot;',
+
+            "'":'&#039;'
+
+        }[character])
+
+    );
+
+}
+
+
+
+/* =========================
+   CHAT
+========================= */
+
+const wsProtocol =
+    location.protocol === 'https:'
+    ? 'wss://'
+    : 'ws://';
+
+
+let ws;
+
+
+function connectChat(){
+
+    ws =
+        new WebSocket(
+            wsProtocol +
+            location.host +
+            '/ws/chat'
+        );
+
+
+    ws.onopen = () => {
+
+        $('chatStatus').textContent =
+            'Connected';
+
+    };
+
+
+    ws.onclose = () => {
+
+        $('chatStatus').textContent =
+            'Disconnected — retrying...';
+
+
+        setTimeout(
+            connectChat,
+            2500
+        );
+
+    };
+
+
+    ws.onerror = () => {
+
+        $('chatStatus').textContent =
+            'Connection error';
+
+    };
+
+
+    ws.onmessage = event => {
+
+        try{
+
+            const data =
+                JSON.parse(
+                    event.data
+                );
+
+
+            if(
+                data.type ===
+                'message'
+            ){
+
+                addMessage(
+                    data
+                );
+
+            }
+
+        }
+
+        catch(error){
+
+            console.log(
+                'Chat message error'
+            );
+
+        }
+
+    };
+
+}
+
+
+
+/* =========================
+   ADD CHAT MESSAGE
+========================= */
+
+function addMessage(message){
+
+    const div =
+        document.createElement(
+            'div'
+        );
+
+
+    div.className =
+        'msg';
+
+
+    div.innerHTML = `
+
+        <b>
+
+        ${escapeHtml(
+            message.username
+        )}
+
+        </b>
+
+        <p>
+
+        ${escapeHtml(
+            message.message
+        )}
+
+        </p>
+
+    `;
+
+
+    $('chat').appendChild(
+        div
+    );
+
+
+    $('chat').scrollTop =
+        $('chat').scrollHeight;
+
+}
+
+
+
+/* =========================
+   CHAT HISTORY
+========================= */
+
+async function loadHistory(){
+
+    try{
+
+        const response =
+            await fetch(
+                '/api/chat/history'
+            );
+
+
+        const data =
+            await response.json();
+
+
+        data.messages.forEach(
+            addMessage
+        );
+
+    }
+
+    catch(error){
+
+        console.log(
+            'Could not load chat history'
+        );
+
+    }
+
+}
+
+
+
+/* =========================
+   SEND CHAT
+========================= */
+
+function sendChat(){
+
+    const username =
+        $('username').value.trim()
+        || 'Guest';
+
+
+    const message =
+        $('message').value.trim();
+
+
+    if(
+        !message ||
+        !ws ||
+        ws.readyState !==
+        WebSocket.OPEN
+    ){
+
+        return;
+
+    }
+
+
+    ws.send(
+        JSON.stringify({
+
+            username:
+                username,
+
+            message:
+                message
+
+        })
+    );
+
+
+    $('message').value = '';
+
+}
+
+
+
+/* =========================
+   START
+========================= */
+
+loadHistory();
+
+connectChat();
+
+
+</script>
+
+</body>
+</html>
